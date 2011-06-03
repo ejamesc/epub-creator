@@ -1,0 +1,28 @@
+.. _templates:
+
+=========
+Templates
+=========
+
+The templates used by epub-creator are all standard Django templates. They are rendered in epub/models.py. The three templates you should be most concerned about are ``article.html``,  ``contents.html`` and ``title_page.html``.
+
+**title_page.html** is the front page of your epub document. There are related comments in the template to point out possible variables to display on your front page.
+
+**contents.html** is the template used to generate the table of contents.
+
+**article.html** is the template used to generate your chapter pages. Do note that you should autoescape variable data - unescaped entities such as ampersands (&) would cause a rendering error in most epub readers.
+
+Encoding
+=======================
+
+Note that all templates should have the following tag at the top::
+    
+    <?xml version="1.0" encoding="UTF-8"?>
+
+This is because ePub package documents should be encoded in either UTF-8 or UTF-16 encodings (so, theoretically you could use UTF-16 as well).
+
+Errata
+=======================
+
+A good principle to keep in mind is to keep markup as sparse as is possible. You want most of the display decisions to be decided by the epub reader, so the user may change fonts and the like.
+

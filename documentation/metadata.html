@@ -1,0 +1,299 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Metadata &mdash; ePub Creator v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ePub Creator v0.1 documentation" href="index.html" />
+    <link rel="next" title="Templates" href="templates.html" />
+    <link rel="prev" title="Tutorial: Creating an ePub" href="tutorial.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>ePub Creator v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Metadata</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="templates.html" title="Templates" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="tutorial.html" title="Tutorial: Creating an ePub" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial: Creating an ePub</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="metadata">
+<span id="id1"></span><h1>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h1>
+<p>Metadata for a publication is handled by the <tt class="xref py py-class docutils literal"><span class="pre">EPubMetadata</span></tt> class. When you instantiate an <tt class="xref py py-class docutils literal"><span class="pre">EPub</span></tt> object, an empty <tt class="xref py py-class docutils literal"><span class="pre">EPubMetadata</span></tt> object is created with default values for the required elements: <tt class="docutils literal"><span class="pre">title</span></tt>, <tt class="docutils literal"><span class="pre">indicator</span></tt>, <tt class="docutils literal"><span class="pre">language</span></tt>.</p>
+<p>There are several standard metadata tags:</p>
+<ul>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.1">title</a>
+<em>Required.</em> The title of the publication. Although the specification allows
+for more than one <tt class="docutils literal"><span class="pre">title</span></tt> element, we only allow one.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&#39;My Cool Publication&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.2">creator</a>
+<em>Optional.</em> A primary creator or author of this publication, with each
+person in their own element. For publications with multiple articles, the
+authors should be listed as <tt class="docutils literal"><span class="pre">contributor</span></tt> elements (in fact <tt class="xref py py-class docutils literal"><span class="pre">EPub</span></tt>
+will do it for you when you add an article).</p>
+<p>There are two <em>optional</em> attributes: <tt class="docutils literal"><span class="pre">file_as</span></tt> and <tt class="docutils literal"><span class="pre">role</span></tt>. The
+<tt class="docutils literal"><span class="pre">file-as</span></tt> attribute is to specify a normalized form of the contents,
+suitable for machine processing. <tt class="docutils literal"><span class="pre">EPubMetadata</span></tt> attempts to convert the
+value to a <tt class="docutils literal"><span class="pre">lastname,</span> <span class="pre">firstname</span></tt> format if the attribute is not specified.</p>
+<p>The <tt class="docutils literal"><span class="pre">role</span></tt> attribute must be one of those listed <a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.6">in the specification</a>. It defaults to <tt class="docutils literal"><span class="pre">aut</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_creator</span><span class="p">(</span><span class="s">&#39;Rev. Dr. Martin Luther King Jr.&#39;</span><span class="p">)</span>
+<span class="c"># The resulting element would look like:</span>
+<span class="c"># &lt;dc:creator opf:file-as=&quot;King Jr, Rev Dr Martin Luther&quot; opf:role=&quot;aut&quot;&gt;</span>
+<span class="c">#    Rev. Dr. Martin Luther King Jr.</span>
+<span class="c"># &lt;/dc:creator&gt;</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_creator</span><span class="p">(</span><span class="s">&#39;Jean Claude Van Damme&#39;</span><span class="p">,</span> <span class="n">file_as</span><span class="o">=</span><span class="s">&#39;Van Damme, J C&#39;</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="s">&#39;edt&#39;</span><span class="p">)</span>
+<span class="c"># The resulting element would look like:</span>
+<span class="c"># &lt;dc:creator opf:file-as=&quot;Van Damme, J C&quot; opf:role=&quot;edt&quot;&gt;</span>
+<span class="c">#    Jean Claude Van Damme</span>
+<span class="c"># &lt;/dc:creator&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.3">subject</a>
+<em>Optional.</em> Arbitrary keywords or phrases describing what the publication is
+about.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_subject</span><span class="p">(</span><span class="s">&#39;Entertainment&#39;</span><span class="p">)</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_subject</span><span class="p">(</span><span class="s">&#39;Mary Poppins&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.4">description</a>
+<em>Optional.</em> The description of the publication&#8217;s content.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s">&quot;An exposé of the immoral events leading to the tragic death of Mary Poppins.&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.5">publisher</a>
+<em>Optional.</em> An entity responsible for making the resource available.
+Examples of <tt class="docutils literal"><span class="pre">publisher</span></tt> include a person, organization, or service.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">publisher</span> <span class="o">=</span> <span class="s">&quot;The Daily Times, LLC&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.6">contributor</a>
+<em>Optional.</em> Contributors are identical to creators, only implying less
+significance in contribution to the whole work. There can be more than one,
+and they have <tt class="docutils literal"><span class="pre">file_as</span></tt> and <tt class="docutils literal"><span class="pre">role</span></tt> attributes, which have the same
+defaults as the <tt class="docutils literal"><span class="pre">creator</span></tt> element.</p>
+<p>When you add an article with <tt class="xref py py-meth docutils literal"><span class="pre">EPub.add_article()</span></tt> and specify an
+<tt class="docutils literal"><span class="pre">author</span></tt>, a <tt class="docutils literal"><span class="pre">contributor</span></tt> element is added automatically.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">add_article</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Awesome Article&#39;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">my_content_var</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="s">&#39;Johnny Appleseed&#39;</span><span class="p">)</span>
+<span class="c"># A contributor element is added for Johnny Appleseed with a role of &#39;aut&#39;</span>
+
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_contributor</span><span class="p">(</span><span class="s">&#39;P T Barnum&#39;</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="s">&#39;ill&#39;</span><span class="p">)</span>
+<span class="c"># Adds an illustrator contributor of Barnum, P T</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.7">date</a>
+<em>Optional.</em> The date of publication, in the form <tt class="docutils literal"><span class="pre">YYYY</span></tt> or <tt class="docutils literal"><span class="pre">YYYY-MM</span></tt> or
+<tt class="docutils literal"><span class="pre">YYYY-MM-DD</span></tt>. The optional <tt class="docutils literal"><span class="pre">event</span></tt> attribute can specify: <tt class="docutils literal"><span class="pre">creation</span></tt>,
+<tt class="docutils literal"><span class="pre">publication</span></tt>, or <tt class="docutils literal"><span class="pre">modification</span></tt>. The <tt class="xref py py-class docutils literal"><span class="pre">EPubMetadata</span></tt> has three
+attributes that serve as shortcuts to setting and getting specific events:
+<tt class="docutils literal"><span class="pre">EPubMetadata.creation_date</span></tt>, <tt class="docutils literal"><span class="pre">EPubMetadata.modification_date</span></tt>, and
+<tt class="docutils literal"><span class="pre">EPubMetadata.publication_date</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_date</span><span class="p">(</span><span class="s">&#39;2009-01-01&#39;</span><span class="p">)</span>
+<span class="c"># Sets a generic publication date</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_date</span><span class="p">(</span><span class="s">&#39;2008-05&#39;</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s">&#39;creation&#39;</span><span class="p">)</span>
+<span class="c"># Sets a creation date</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">creation_date</span>
+<span class="c"># returns &#39;2008-05&#39;</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">modification_date</span> <span class="o">=</span> <span class="s">&#39;2010&#39;</span>
+<span class="c"># Same as: epub.metadata.add_date(&#39;2010&#39;, event=&#39;modification&#39;)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.8">type</a>
+<em>Optional.</em> The nature or genre of the content of the resource. Type
+includes terms describing general categories, functions, genres, or
+aggregation levels for content. Wikipedia has a list of
+<a class="reference external" href="http://en.wikipedia.org/wiki/Literary_genre">literary genres</a>. To
+describe the physical or digital manifestation of the resource, use the
+<tt class="docutils literal"><span class="pre">format</span></tt> element.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">&#39;Fiction&#39;</span><span class="p">)</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">&#39;Comedy&#39;</span><span class="p">)</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">&#39;Romance&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.9">format</a>
+<em>Optional.</em> The specifications say &#8220;The media type or dimensions of
+the resource. and suggest using MIME types. It doesn&#8217;t make any sense
+to me. I&#8217;d recommend not using this.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s">&#39;US Letter&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.10">identifier</a>
+<em>Required.</em> A string or number used to uniquely identify the resource. One
+set up for you at the creation of the <tt class="xref py py-class docutils literal"><span class="pre">EPub</span></tt> object. You can override
+this with <tt class="xref py py-meth docutils literal"><span class="pre">EPub.metadata.set_unique_id()</span></tt>. The unique id requires one
+attribute, <tt class="docutils literal"><span class="pre">id</span></tt>, which is unique across all publication <tt class="docutils literal"><span class="pre">identifier</span></tt>
+elements, and optionally a <tt class="docutils literal"><span class="pre">scheme</span></tt> attribute to identify the system or
+authority that assigned or created the value of the identifier (ISBN, uuid,
+URL, etc.)</p>
+<p>You can add additional <tt class="docutils literal"><span class="pre">identifier</span></tt> elements with or without the <tt class="docutils literal"><span class="pre">id</span></tt>
+and <tt class="docutils literal"><span class="pre">scheme</span></tt> attributes.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">unique_id</span>
+<span class="c"># returns the automatically generated id as a dictionary.</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">set_unique_id</span><span class="p">(</span><span class="s">&#39;1-60239-243-9&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s">&#39;BookId&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s">&#39;ISBN&#39;</span><span class="p">)</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_identifier</span><span class="p">(</span><span class="s">&#39;978-1-60239-243-9&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s">&#39;ISBN-13&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.11">source</a>
+<em>Optional.</em> If this publication was derived from a prior resource, indicate
+from which resource it was derived using a formal identification system.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s">&#39;http://www.example.com/booknotes/&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.12">language</a>
+<em>Required.</em> By default it is set to <tt class="docutils literal"><span class="pre">en</span></tt>. You can change it to any two- or
+three-letter value in <a class="reference external" href="http://www.loc.gov/standards/iso639-2/langhome.html">ISO 639.2</a> and you can add a two-
+letter <a class="reference external" href="http://www.iso.org/iso/country_codes/iso_3166_code_lists/english_country_names_and_code_elements.htm">country abbrviation</a> to specify a country-specific dialect such as <tt class="docutils literal"><span class="pre">en-US</span></tt> or <tt class="docutils literal"><span class="pre">en-GB</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="s">&#39;fr-CA&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.13">relation</a>
+<em>Optional.</em> An identifier of an auxiliary resource and its relationship to
+the publication. There can be more than one <tt class="docutils literal"><span class="pre">relation</span></tt> element.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_relation</span><span class="p">(</span><span class="s">&#39;http://www.example.com/errata.html&#39;</span><span class="p">)</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_relation</span><span class="p">(</span><span class="s">&#39;ISBN:1-60239-243-9&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.14">coverage</a>
+<em>Optional.</em> Typically, coverage will include spatial location (a place name
+or geographic coordinates), temporal period (a period label, date, or date
+range) or jurisdiction (such as a named administrative entity). Recommended
+best practice is to select a value from a controlled vocabulary (for
+example, the <a class="reference external" href="http://www.getty.edu/research/tools/vocabulary/tgn/index.html">Thesaurus of Geographic Names</a>) and to use, where
+appropriate, named places or time periods in preference to numeric
+identifiers such as sets of coordinates or date ranges.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">coverage</span> <span class="o">=</span> <span class="s">&#39;Italy, 1440-1560&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2.15">rights</a>
+<em>Optional.</em> A statement about rights held in and over the publication.
+Rights information often encompasses Intellectual Property Rights (IPR),
+Copyright, and various Property Rights.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">rights</span> <span class="o">=</span> <span class="s">&#39;Copyright © 2009 by Digital Times, LLC. All rights reserved.&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://www.idpf.org/2007/opf/OPF_2.0_final_spec.html#Section2.2">meta</a>
+<em>Optional.</em> This is the catch-all metadata tag. Anything not specified
+above, can be specified here, as long as it applies to the whole
+publication.</p>
+<p>When adding the meta information, you must specify the name of the metadata
+and the content of the metadata</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">epub</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+<span class="n">epub</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_meta</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;price&quot;</span><span class="p">,</span> <span class="n">currency</span><span class="o">=</span><span class="s">&quot;USD&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">&quot;9.99&quot;</span><span class="p">)</span>
+<span class="c"># The tag generated is: &lt;meta name=&quot;price&quot; content=&quot;USD 9.99&quot; /&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2009, The Washington Times.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Metadata
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>

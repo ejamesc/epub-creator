@@ -1,3 +1,3 @@
 #!/bin/bash
-cd docs
+cd docs_source
 make html

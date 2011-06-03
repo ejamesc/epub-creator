@@ -1,0 +1,198 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tutorial: Creating an ePub &mdash; ePub Creator v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ePub Creator v0.1 documentation" href="index.html" />
+    <link rel="next" title="Metadata" href="metadata.html" />
+    <link rel="prev" title="ePub Generator" href="index.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>ePub Creator v0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Tutorial: Creating an ePub</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="metadata.html" title="Metadata" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="index.html" title="ePub Generator" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Tutorial: Creating an ePub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#things-you-need-to-worry-about">Things you need to worry about</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-epub-generator">Download ePub Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-tutorial-environment">Setting up the tutorial environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-epub">Creating the ePub</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tutorial-creating-an-epub">
+<h1>Tutorial: Creating an ePub<a class="headerlink" href="#tutorial-creating-an-epub" title="Permalink to this headline">¶</a></h1>
+<p>An ePub is really just a bunch of files compressed using zip. Unfortunately, the files are XML and XML is a bit ... particular. We have attempted to make the process as easy as possible.</p>
+<div class="section" id="things-you-need-to-worry-about">
+<h2>Things you need to worry about<a class="headerlink" href="#things-you-need-to-worry-about" title="Permalink to this headline">¶</a></h2>
+<p>Much of the details of the ePub are handled for you, but not everything. Here are a few things to think about:</p>
+<p><strong>Metadata.</strong> There are three pieces of required metadata: title, language and a unique id. These pieces of metadata are set to reasonable defaults. Look at the section on <a class="reference internal" href="metadata.html#metadata"><em>Metadata</em></a> for more information.</p>
+<p><strong>Templates.</strong> The actual content of the ePub is in XHTML, formatted with CSS. Although you can override the templates for all the files that are used in the ePub, there are three you should be concerned about: <tt class="docutils literal"><span class="pre">article.html</span></tt>, <tt class="docutils literal"><span class="pre">contents.html</span></tt> and <tt class="docutils literal"><span class="pre">title_page.html</span></tt>. These templates are discussed in the <a class="reference internal" href="templates.html#templates"><em>Templates</em></a> section below.</p>
+</div>
+<div class="section" id="download-epub-generator">
+<h2>Download ePub Generator<a class="headerlink" href="#download-epub-generator" title="Permalink to this headline">¶</a></h2>
+<p>Get into a terminal or command line
+git clone ...
+download from github</p>
+</div>
+<div class="section" id="setting-up-the-tutorial-environment">
+<h2>Setting up the tutorial environment<a class="headerlink" href="#setting-up-the-tutorial-environment" title="Permalink to this headline">¶</a></h2>
+<p>We are going to start by setting up an isolated python environment. If you haven&#8217;t installed <tt class="docutils literal"><span class="pre">virtualenv</span></tt> and <tt class="docutils literal"><span class="pre">virtualenvwrapper</span></tt>, install them from the terminal prompt.</p>
+<div class="highlight-python"><pre>easy_install virtualenv
+easy_install virtualenvwrapper</pre>
+</div>
+<p>Add the following lines to your ~/.profile (or wherever it might go on windows):</p>
+<div class="highlight-python"><pre>export WORKON_HOME=\$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper_bashrc</pre>
+</div>
+<p>Change into the epub project directory that you downloaded.</p>
+<div class="highlight-python"><pre>cd epub</pre>
+</div>
+<p>Now we are going to make the virtual environment:</p>
+<div class="highlight-python"><pre>mkvirtualenv --no-site-packages epub</pre>
+</div>
+<p>You now have created a new virtualenv that is isolated from your normal python installation. Your command prompt should have <tt class="docutils literal"><span class="pre">(epub)</span></tt> in front of it. That means you are using the isolated environment. Let&#8217;s install Django to get things going:</p>
+<div class="highlight-python"><pre>easy_install django</pre>
+</div>
+<p>Change directories to the example project and create the database. Answer all the questions for creating the superuser:</p>
+<div class="highlight-python"><pre>cd example
+python manage.py syncdb</pre>
+</div>
+<p>Finally we&#8217;ll load some sample data:</p>
+<div class="highlight-python"><pre>python manage.py loaddata stories.json</pre>
+</div>
+</div>
+<div class="section" id="creating-the-epub">
+<h2>Creating the ePub<a class="headerlink" href="#creating-the-epub" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll do this from the python shell, although you could just as easily create a script for this.</p>
+<div class="highlight-python"><pre>python manage.py shell</pre>
+</div>
+<p>Start by importing a few models and modules. We&#8217;ll use the <tt class="docutils literal"><span class="pre">os</span></tt> module and the Django <tt class="docutils literal"><span class="pre">settings</span></tt> module to create some paths. The <tt class="docutils literal"><span class="pre">EPub</span></tt> and <tt class="docutils literal"><span class="pre">Story</span></tt> models are for the actual creation of the ePub.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">epub.models</span> <span class="kn">import</span> <span class="n">EPub</span>
+<span class="kn">from</span> <span class="nn">simplestory.models</span> <span class="kn">import</span> <span class="n">Story</span>
+</pre></div>
+</div>
+<p>Here are some paths we&#8217;ll need later on. The <tt class="docutils literal"><span class="pre">img_path</span></tt> is the path for a Scalable Vector Graphic (SVG) logo that we&#8217;ll embed. <tt class="docutils literal"><span class="pre">final_path</span></tt> is where the final ePub will be saved:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">APP</span><span class="p">,</span><span class="s">&#39;example&#39;</span><span class="p">,</span><span class="s">&#39;simplestory&#39;</span><span class="p">,</span><span class="s">&#39;fixtures&#39;</span><span class="p">,</span><span class="s">&#39;dailytimes.svg&#39;</span><span class="p">))</span>
+<span class="n">final_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">APP</span><span class="p">,</span><span class="s">&#39;example&#39;</span><span class="p">,</span><span class="s">&#39;testpub.epub&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Create an empty <tt class="xref py py-class docutils literal"><span class="pre">EPub</span></tt> object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">EPub</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We&#8217;ll set some of the metadata for this publication:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">&quot;The Daily Times for Today&quot;</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">publisher</span> <span class="o">=</span> <span class="s">&quot;Daily Times Publishing Inc&quot;</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="s">&#39;en-US&#39;</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_date</span><span class="p">(</span><span class="s">&#39;2009-07-05&#39;</span><span class="p">)</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_date</span><span class="p">(</span><span class="s">&#39;2009-07-04&#39;</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s">&quot;creation&quot;</span><span class="p">)</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">modification_date</span> <span class="o">=</span> <span class="s">&#39;2009-08-08&#39;</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_subject</span><span class="p">(</span><span class="s">&quot;Zombies&quot;</span><span class="p">)</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_subject</span><span class="p">(</span><span class="s">&quot;Apocolypse&quot;</span><span class="p">)</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_subject</span><span class="p">(</span><span class="s">&quot;Teen Angst&quot;</span><span class="p">)</span>
+<span class="n">e</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">add_meta</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">,</span> <span class="s">&#39;USD 9.99&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The ePub format allows for the embedding of images. The image file is copied into the final document. Your XHTML documents can reference it using <tt class="docutils literal"><span class="pre">../images/filename.jpg</span></tt>. The <tt class="xref py py-meth docutils literal"><span class="pre">EPub.add_image()</span></tt> method requires a path to the original file. It also allows a <tt class="docutils literal"><span class="pre">name</span></tt> parameter if you want to rename the file. The The <tt class="xref py py-meth docutils literal"><span class="pre">EPub.add_image()</span></tt> method tries to guess the MIME type of the file passed in, but you can override this by passing a <tt class="docutils literal"><span class="pre">mimetype</span></tt> parameter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;logo.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Adding the articles or chapters is very straightforward. The <tt class="xref py py-meth docutils literal"><span class="pre">EPub.add_article()</span></tt> method has two required parameters: <tt class="docutils literal"><span class="pre">title</span></tt> and <tt class="docutils literal"><span class="pre">content</span></tt>, and two optional parameters: <tt class="docutils literal"><span class="pre">filename</span></tt> and <tt class="docutils literal"><span class="pre">author</span></tt>. If the <tt class="docutils literal"><span class="pre">filename</span></tt> is left off, the <tt class="docutils literal"><span class="pre">title</span></tt> is modified to become the name of the file. If the <tt class="docutils literal"><span class="pre">author</span></tt> is included, the value is added as a <tt class="docutils literal"><span class="pre">contributor</span></tt>. Here we get all the <tt class="xref py py-class docutils literal"><span class="pre">Story</span></tt> objects, loop through them and add each to the publication:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">Story</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">add_article</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">headline</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">slug</span><span class="o">+</span><span class="s">&quot;.html&quot;</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">byline</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>At last we generate the actual ePub:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span><span class="o">.</span><span class="n">generate_epub</span><span class="p">(</span><span class="n">final_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2009, The Washington Times.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Tutorial: Creating an ePub
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>
