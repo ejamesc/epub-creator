@@ -16,7 +16,7 @@ A couple of things:
 
 ## Detailed Documentation ##
 
-Corey has provided comprehensive documentation with the original version of ePub Creator. I've done some reorganization: the generated html docs are in documentation/; the Sphinx build files are available in /docs_source. (This way if you're lazy you won't have to install Sphinx to build documentation)
+Corey has provided comprehensive documentation with the original version of ePub Creator. I've done some reorganization: the generated html docs are in documentation/; the Sphinx build files are available in docs_source/. (This way if you're lazy you won't have to install Sphinx to build documentation)
 
 I've also added a section on Templates, which Corey left blank.
 
@@ -46,4 +46,6 @@ for entry in s:
 e.generate_epub(final_path)
 ```
 
-Just drop the epub/ folder into your Django app, and remember to add it to your INSTALLED_APPS as 'yourappname.epub'. You're good to go!
+Just drop the epub/ folder into your Django app, and remember to add it to your INSTALLED_APPS as 'yourappname.epub'. 
+
+
