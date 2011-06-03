@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>{{ article.title }}</title>
+<title>{{ entry.title }}</title>
 <link rel="stylesheet" href="../stylesheet.css" type="text/css" />
 <link rel="stylesheet" href="../pagetemplate.xpgt" type="application/vnd.adobe-page-template+xml" />
 </head>
 <body>
-	<h1 class="headline">{{ article.headline|safe }}</h1>
-	{% if article.subhead %}<h2 class="subhead">{{ article.subhead|safe }}</h2>{% endif %}
-	<p class="byline">{{ article.byline }}</p>
-	{{ article.story|safe }}
+	<h1 class="headline">{{ entry.title }}</h1>
+	{{ entry.body|safe }}
+	
+	{% comment %}{% if entry.subhead %}<h2 class="subhead">{{ entry.subhead|safe }}</h2>{% endif %}
+	<p class="byline">{{ entry.byline }}</p>{% endcomment %}
+	
 </body>
 </html>

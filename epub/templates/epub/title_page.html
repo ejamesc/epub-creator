@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,10 +8,21 @@
 </head>
 <body>
 <div>
-	<img src="../images/logo.svg" alt="logo" width="250px" />
+	{% comment %}
+	# Add a cover image here, if you wish.
+	<img src="../images/logo.svg" alt="logo" width="250px" />{% endcomment %}
+	<h1>{{ title }}</h1>
+	{% for author in authors %}
+	<p><b>Author:</b> {{ author }}</p>
+	{% endfor %}
+	
+	{% comment %}
+	# Example to add additional information, just use Django's templating language
+	# as usual
 	<p><b>Edition:</b> {{ metadata.date }}</p>
 	<p><b>Published by:</b> {{ metadata.publisher }}</p>
-	<p><a href="contents.html">Contents</a></p>
+	<p><a href="contents.html">Contents</a></p>{% endcomment %}
+
 </div>
 </body>
 </html>

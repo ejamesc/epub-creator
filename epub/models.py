@@ -1,5 +1,6 @@
 from django import template
 from django.template.loader import get_template
+from django.utils.html import escape
 
 common_second_words = ('al', 'da', 'de', 'del', 'dela', 'della', 'di', 'du', 'el', 'la', 'le', 'mc', 'o\'', 'san', 'st', 'sta', 'van', 'vande', 'vanden', 'vander', 'von',)
 common_third_words = ('van', 'de', )
@@ -27,6 +28,9 @@ def format_name(name):
     new_name.strip()
     # Split on spaces
     pieces = new_name.split()
+    
+    if len(pieces) == 1:
+        return new_name
     
     # Check for suffixes
     if pieces[-1].lower() in common_suffixes:
@@ -356,7 +360,7 @@ class EPub(object):
         tmpl = get_template('epub/toc.ncx')
         context = template.Context(dict(
             pub_id=self.metadata.unique_id['value'],
-            title=self.metadata.title,
+            title= self.metadata.title,
             articles=self.articles
         ))
         return tmpl.render(context)
@@ -364,7 +368,7 @@ class EPub(object):
     def generate_contents(self):
         tmpl = get_template('epub/contents.html')
         context = template.Context(dict(
-            articles=self.articles
+            entries=self.articles
         ))
         return tmpl.render(context)
     
@@ -372,6 +376,7 @@ class EPub(object):
         tmpl = get_template('epub/title_page.html')
         context = template.Context(dict(
             title=self.metadata.title,
+            authors=self.metadata.creator.keys(),
             description=self.metadata.description,
             publisher=self.metadata.publisher,
             metadata=self.metadata
@@ -381,7 +386,7 @@ class EPub(object):
     def generate_article(self, article):
         tmpl = get_template('epub/article.html')
         context = template.Context(dict(
-            article=article
+            entry=article
         ))
         tmplstr = tmpl.render(context)
         return tmplstr.encode('ascii', 'xmlcharrefreplace')
@@ -427,7 +432,7 @@ class EPub(object):
             for article in self.articles:
                 epub.writestr('OEBPS/text/%s' % article['filename'], self.generate_article(article['content']))
         except Exception, e:
-            print e
+            raise #write your own exception handling here, it'll bubble up through the callstack
         
         if epub:
             epub.close()
