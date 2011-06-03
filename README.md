@@ -30,11 +30,11 @@ from appname.epub.models import EPub
 final_path = os.path.join(temp_dir, "book.epub") 
 e = EPub()
 
-e.metadata.title = bookObj.title
-e.metadata.add_creator(bookObj.author.first_name)
-e.metadata.description = bookObj.description
+e.metadata.title = book.title
+e.metadata.add_creator(book.author)
+e.metadata.description = book.description
 e.metadata.publisher = 'Pandamian'
-e.metadata.language = 'en'
+e.metadata.language = 'en-US'
 
 #images, to be added later
 #e.add_image(img_path, name='logo.svg')
