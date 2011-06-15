@@ -266,8 +266,8 @@ class EPubMetadata(object):
         attributes = []
         for key, val in attrs.items():
             if val:
-                attributes.append(u'%s="%s"' % (key, val.encode('ascii','xmlcharrefreplace')))
-        output = [u'<dc:%s %s>' % (tag, " ".join(attributes)),value.encode('ascii','xmlcharrefreplace'),'</dc:%s>' % tag]
+                attributes.append(u'%s="%s"' % (key, val))
+        output = [u'<dc:%s %s>' % (tag, " ".join(attributes)),value,'</dc:%s>' % tag]
         return "".join(output)
     
     def __eq__(self, other):
@@ -275,7 +275,7 @@ class EPubMetadata(object):
         return False
     
     def __str__(self):
-        ret = self.__unicode__().encode('ascii', 'xmlcharrefreplace')
+        ret = self.__unicode__().encode('utf-8', 'xmlcharrefreplace')
         return ret
     
     def __unicode__(self):
@@ -290,13 +290,13 @@ class EPubMetadata(object):
                     if isinstance(item, dict):
                         md_list.append(self._format_dict(key, item))
                     else:
-                        md_list.append(u'<dc:%s>%s</dc:%s>' % (key, item.encode('ascii', 'xmlcharrefreplace'), key))
+                        md_list.append(u'<dc:%s>%s</dc:%s>' % (key, item, key))
             elif isinstance(val, (dict)):
                 for item_key, item_val in val.items():
                     item_val['value']=item_key
                     md_list.append(self._format_dict(key, item_val))
             else:
-                md_list.append(u'<dc:%s>%s</dc:%s>' % (key, val.encode('ascii', 'xmlcharrefreplace'), key))
+                md_list.append(u'<dc:%s>%s</dc:%s>' % (key, val, key))
         return u'\n'.join(md_list)
 
 class EPub(object):
@@ -328,7 +328,7 @@ class EPub(object):
         self.articles.append({'title': title, 'content':content, 'filename':filename})
         if author:
             self.metadata.add_contributor(author, role="aut")
-    
+            
     def add_image(self, filepath, name=None, mime_type=None):
         if not name:
             name = os.path.basename(filepath)
@@ -389,7 +389,7 @@ class EPub(object):
             entry=article
         ))
         tmplstr = tmpl.render(context)
-        return tmplstr.encode('ascii', 'xmlcharrefreplace')
+        return tmplstr.encode('utf-8', 'xmlcharrefreplace')
     
     def generate_epub(self, filepath):
         import zipfile, os
@@ -405,10 +405,10 @@ class EPub(object):
             epub.write(contpath, 'META-INF/container.xml')
             
             # Write content.opf
-            epub.writestr('OEBPS/content.opf', self.generate_opf())
+            epub.writestr('OEBPS/content.opf', self.generate_opf().encode('utf-8'))
             
             # Write toc.ncx
-            epub.writestr('OEBPS/toc.ncx', self.generate_toc())
+            epub.writestr('OEBPS/toc.ncx', self.generate_toc().encode('utf-8'))
             
             # Write stylesheet
             stylepath = os.path.abspath(os.path.join(tmpl_dir,'stylesheet.css'))
@@ -419,10 +419,10 @@ class EPub(object):
             epub.write(pagetmplpath, 'OEBPS/pagetemplate.xpgt')
             
             # Write title page
-            epub.writestr('OEBPS/text/title_page.html', self.generate_titlepage())
+            epub.writestr('OEBPS/text/title_page.html', self.generate_titlepage().encode('utf-8'))
             
             # Write contents
-            epub.writestr('OEBPS/text/contents.html', self.generate_contents())
+            epub.writestr('OEBPS/text/contents.html', self.generate_contents().encode('utf-8'))
             
             # Write images
             for img in self.images:
